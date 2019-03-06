@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Add Edit Remove HTML Table Row</title>
+        <meta charset="windows-1252">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <style>
+		body
+		{
+			background-color:lightgreen;
+		}
+         
+			h1 {
+				text-shadow: 0 0 3px #FF0000;
+				}
+		table 
+	{
+		 
+		border-collapse: collapse;
+		width: 100%;
+	}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+
+
+            .container{overflow: hidden}
+            .tab{float: left;}
+            .tab-2{margin-left: 50px}
+            .tab-2 input{display: block;margin-bottom: 10px}
+            tr{transition:all .25s ease-in-out}
+            tr:hover{background-color: #f2f2f2;cursor: pointer}
+            
+        </style>
+        
+    </head>
+    <body >
+	<h1><b>WELCOME TO PHONE DIRECTORY</b></h1><br>
+	<h2>This an sample of mini phone directory to add/remove the user using JavaScript<br>
+	1.ADD USER<br>
+	2.DELETE USER(to delete just click on the row then press delete button)</h2>
+	
+        
+        <div class="container">
+            <div class="tab tab-2">
+                <table id="table" border="1">
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone</th>
+                       
+                    </tr>
+                    <tr>
+                        <td>ABCD</td>
+                        <td>123458</td>
+                        
+                    </tr>
+                    <tr>
+                        <td>XYZH</td>
+                        <td>78754</td>
+                       
+                    </tr>
+                    
+                </table>
+            </div>
+            <div class="tab tab-2">
+                First Name :<input type="text" name="fname" id="fname">
+                
+                Phone :<input type="number" name="phone" id="phone">
+                
+                <button onclick="addHtmlTableRow();">Add</button>
+                
+                <button onclick="removeSelectedRow();">Remove</button>
+            </div>
+        </div>
+        
+        <script>
+            
+            var rIndex,
+                table = document.getElementById("table");
+            
+            // check the empty input
+            function checkEmptyInput()
+            {
+                var isEmpty = false,
+                    fname = document.getElementById("fname").value,
+                    
+                    phone = document.getElementById("phone").value;
+            
+                if(fname === ""){
+                    alert("First Name Connot Be Empty");
+                    isEmpty = true;
+                }
+               
+                
+                else if(phone === "")
+				{
+                    alert("phone Connot Be Empty");
+                    isEmpty = true;
+                }
+                return isEmpty;
+            }
+            
+            // add Row
+            function addHtmlTableRow()
+            {
+               
+                if(!checkEmptyInput()){
+                var newRow = table.insertRow(table.length),
+                    cell1 = newRow.insertCell(0),
+                    cell2 = newRow.insertCell(1),
+                    
+                    fname = document.getElementById("fname").value,
+                   
+                    phone = document.getElementById("phone").value;
+            
+                cell1.innerHTML = fname;
+                
+                cell2.innerHTML = phone;
+                
+                selectedRowToInput();
+            }
+            }
+            
+            // display selected row data into input text
+            function selectedRowToInput()
+            {
+                
+                for(var i = 0; i < table.rows.length; i++)
+                {
+                    table.rows[i].onclick = function()
+                    {
+                      // get the seected row index
+                      rIndex = this.rowIndex;
+                      document.getElementById("fname").value = this.cells[0].innerHTML;
+                     
+                      document.getElementById("phone").value = this.cells[1].innerHTML;
+                    };
+                }
+            }
+            selectedRowToInput();
+            
+            
+            
+            function removeSelectedRow()
+            {
+                table.deleteRow(rIndex);
+                
+                document.getElementById("fname").value = "";
+               
+                document.getElementById("phone").value = "";
+            }
+        </script>
+        
+    </body>
+</html>
